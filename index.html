@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=600, height=600">
+    <title>EL AVION DE DARIEN</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <a-scene embedded>
+        <!-- Marcador Hiro -->
+        <a-marker preset="hiro" id="hiro-marker">
+            <!-- Modelo 3D -->
+            <a-entity gltf-model="url(modelo.glb)" 
+                      position="-2 -2 -2" 
+                      scale="0.5 0.5 0.5" 
+                      rotation="0 0 0" 
+                      animation-mixer="clip: *; loop: repeat;"></a-entity>
+        </a-marker>
+        <!-- Cámara para la escena -->
+        <a-entity camera></a-entity>
+    </a-scene>
+
+     <button id="audio-btn" style="position: absolute; top: 20px; left: 20px; width: 250px; height: 180px; padding: 10px 20px; font-size: 50px;background-color: red; color: white;">
+        Audio
+    </button>
+    <script>
+        // Función para reproducir la voz
+        function hablar(texto) {
+            const sintesisVoz = window.speechSynthesis;
+            const mensaje = new SpeechSynthesisUtterance(texto);
+            mensaje.lang = 'es-ES';  // Cambia el idioma si lo necesitas
+            sintesisVoz.speak(mensaje);
+        }
+
+        // Al hacer clic en el botón "Audio"
+        document.getElementById('audio-btn').addEventListener('click', function() {
+            hablar('En este avión, Darién te invita a volar a lugar que vos quieras. Imaginá a dónde querés llegar, ese sitio al que tanto pero tanto te gustaría ir. Puede ser otra ciudad, país o continente. Puede estar dentro de vos. Con su magia y su sonrisa, Darién puede pilotear esta nave a través del cielo, el tiempo y el espacio, para llegar allí a donde todos podemos soñar');
+        });
+    </script>
+    
+    <script>
+        const marker = document.getElementById('hiro-marker');
+
+        marker.addEventListener('markerFound', () => {
+            console.log('Marcador encontrado');
+            // Aquí puedes realizar cualquier acción que necesites cuando se encuentra el marcador
+        });
